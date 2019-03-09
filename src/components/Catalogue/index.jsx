@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import Modal from 'react-modal';
+import { observer } from 'mobx-react';
 import ProductList from '../ProductList';
+import ProductStore from '../../stores/ProductStore';
 
 class Catalogue extends Component {
   constructor(props) {
@@ -89,7 +91,7 @@ class Catalogue extends Component {
         });
 
         // Adding values to redux state
-        this.props.addProduct({ productName, productPrice, productId });
+        this.props.ProductStore.addProduct({ productName, productPrice, productId });
       });
     });
   }
@@ -109,7 +111,7 @@ class Catalogue extends Component {
       <section className="catalogue-wrapper">
         <div className="text-right">
           <button className="btn-primary" onClick={this.openModal}>Add Info</button>
-          
+          <ProductList ProductStore={ProductStore} />
           <Modal
             isOpen={modalVisibility}
             onAfterOpen={this.afterOpenModal}
@@ -146,5 +148,6 @@ class Catalogue extends Component {
     )
   }
 }
+Catalogue = observer(Catalogue);
 
 export default Catalogue;

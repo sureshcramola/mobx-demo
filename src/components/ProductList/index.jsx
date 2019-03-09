@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
+import { inject, observer} from 'mobx-react';
 
 class ProductList extends Component {
 
   renderProducts() {
 
-    return this.props.products.map((product, productID) => {
+    return this.props.ProductStore.products.map((product, productID) => {
       console.log(product);
       return (
         <tr key={productID}>
@@ -17,8 +18,9 @@ class ProductList extends Component {
   }
 
   render() {
+    const {ProductStore} = this.props;
 
-    if (this.props.products.length <= 0) {
+    if (ProductStore.products.length <= 0) {
       return (
         <div></div>
       )
@@ -44,6 +46,6 @@ class ProductList extends Component {
     )
   }
 }
-
+ProductList = observer(ProductList);
 
 export default ProductList;
