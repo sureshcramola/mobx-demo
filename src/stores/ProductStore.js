@@ -9,8 +9,10 @@ class ProductStore {
         this.products.push(product);
     }
 
-    deleteProduct = (product) => {
-        this.products.pop(product);
+    deleteProduct = (productId) => {
+        let updatedProduct = this.products.slice() //copy array from prevState
+        updatedProduct.splice(productId, 1) // remove element
+        this.products.replace(updatedProduct);
     }
 
     get totalPrice() {

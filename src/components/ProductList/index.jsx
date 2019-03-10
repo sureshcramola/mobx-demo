@@ -2,6 +2,18 @@ import React, { Component } from 'react';
 import { inject, observer} from 'mobx-react';
 
 class ProductList extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+
+    }
+    this.deleteProduct = this.deleteProduct.bind(this);
+  }
+
+  deleteProduct(id){
+    console.log(id);
+    this.props.ProductStore.deleteProduct(id)
+  }
 
   renderProducts() {
 
@@ -11,7 +23,7 @@ class ProductList extends Component {
         <tr key={productID}>
           <td className="">{product.productId}</td>
           <td className="">{product.productName}</td>
-          <td className="">{product.productPrice}</td>
+          <td className="">{product.productPrice} <span className="link-label"  onClick={(e) => this.deleteProduct(productID)}>Delete</span></td>
         </tr>
       )
     })

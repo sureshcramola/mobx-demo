@@ -66,6 +66,16 @@ label{
     font-size:$fontSizeLarge;
 }
 
+.link-label{
+    font-size: $fontSizeSmall;
+    color: $primaryColor;
+    cursor: pointer;
+    line-height: 2;
+    vertical-align: middle;
+    float: right;
+    text-decoration: underline;
+}
+
 .form-wrapper{
     .form-item{
         &:not(:first-child){
