@@ -83,8 +83,20 @@ label{
         }
     }
 }
+.show{
+    display: block!important;
+}
+.hide{
+    display: none!important;
+}
+.d-flex{
+    display: flex;
+}
 
-
+.flex-row-wrap-center{
+    flex-direction: row wrap;
+    justify-content: center;
+}
 // Modal Custom CSS
 .ReactModalPortal{
     .ReactModal__Overlay{

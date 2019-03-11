@@ -36,7 +36,7 @@ class Catalogue extends Component {
   handlePriceChange(event) {
     const re = /^[0-9\b]+$/;
     if (event.target.value === '' || re.test(event.target.value)) {
-      this.setState({ productPrice: event.target.value });
+      this.setState({ productPrice: parseInt(event.target.value) });
     }
   }
 
@@ -91,7 +91,7 @@ class Catalogue extends Component {
         });
 
         // Adding values to redux state
-        this.props.ProductStore.addProduct({ productName, productPrice, productId });
+        this.props.productStore.addProduct({ productName, productPrice, productId });
       });
     });
   }
@@ -111,7 +111,7 @@ class Catalogue extends Component {
       <section className="catalogue-wrapper">
         <div className="text-right">
           <button className="btn-primary" onClick={this.openModal}>Add Info</button>
-          <ProductList ProductStore={ProductStore} />
+          <ProductList productStore={ProductStore} />
           <Modal
             isOpen={modalVisibility}
             onAfterOpen={this.afterOpenModal}
@@ -148,6 +148,7 @@ class Catalogue extends Component {
     )
   }
 }
+
 Catalogue = observer(Catalogue);
 
 export default Catalogue;

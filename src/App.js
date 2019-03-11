@@ -7,10 +7,10 @@ import ProductStore from './stores/ProductStore';
 class App extends Component {
   render() {
     return (
-      <Provider ProductStore={ProductStore}>
+      <Provider productStore={ProductStore}>
         <div className="App">
           <div className="main-wrapper">
-            <Catalogue ProductStore={ProductStore} />
+            <Catalogue productStore={ProductStore} />
           </div>
         </div>
       </Provider>

@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
-import { inject, observer} from 'mobx-react';
+import { inject, observer } from 'mobx-react';
+import Users from '../Users';
+
+inject("ProductStore");
 
 class ProductList extends Component {
   constructor(props) {
@@ -12,12 +15,12 @@ class ProductList extends Component {
 
   deleteProduct(id){
     console.log(id);
-    this.props.ProductStore.deleteProduct(id)
+    this.props.productStore.deleteProduct(id)
   }
 
   renderProducts() {
 
-    return this.props.ProductStore.products.map((product, productID) => {
+    return this.props.productStore.products.map((product, productID) => {
       console.log(product);
       return (
         <tr key={productID}>
@@ -30,11 +33,11 @@ class ProductList extends Component {
   }
 
   render() {
-    const {ProductStore} = this.props;
+    const {productStore} = this.props;
 
-    if (ProductStore.products.length <= 0) {
+    if (productStore.products.length <= 0) {
       return (
-        <div></div>
+        <Users />
       )
     }
 
@@ -51,6 +54,11 @@ class ProductList extends Component {
           </thead>
           <tbody>
             {this.renderProducts()}
+            <tr>
+              <td className=""></td>
+              <td className="text-right"><strong>Total:</strong></td>
+              <td className="">{productStore.totalPrice}</td>
+            </tr>
           </tbody>
         </table>
 
