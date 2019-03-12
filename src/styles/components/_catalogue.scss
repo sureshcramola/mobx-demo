@@ -65,8 +65,15 @@
         margin-right: 5px;
     }
     button{
-        border:1px solid $primaryColor;
+        border:1px solid $greyBG;
         padding: 3px 10px;
         background: $colorWhite;
+        outline: none;
+        &.active{
+            border-color: $primaryColor;
+        }
+        &:hover,&:focus{
+            outline: none;
+        }
     }
 }

@@ -15,11 +15,11 @@ class Catalogue extends Component {
       errors: {
         productName: {
           active: false,
-          message: ''
+          message: 'Product name cannot be empty'
         },
         productPrice: {
           active: false,
-          message: ''
+          message: 'Price cannot be empty'
         },
       },
     }
@@ -61,12 +61,12 @@ class Catalogue extends Component {
     this.setState({
       errors: {
         productName: {
-          active: isProductNameEmpty,
-          message: 'Product name cannot be empty'
+          ...this.state.errors.productName,
+          active: isProductNameEmpty
         },
         productPrice: {
-          active: isPriceEmpty,
-          message: 'Price cannot be empty'
+          ...this.state.errors.productPrice,
+          active: isPriceEmpty
         },
       }
     }, function () {

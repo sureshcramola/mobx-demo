@@ -9,6 +9,7 @@ class Users extends Component {
       currentPage:1,
     }
     this.changePage = this.changePage.bind(this);
+    this.navigatePagination = this.navigatePagination.bind(this);
   }
 
   componentDidMount() {
@@ -49,6 +50,32 @@ class Users extends Component {
       })
   }
 
+  navigatePagination(type){
+    let { currentPage, totalPage } = this.state;
+    console.log(currentPage,totalPage);
+    if( type == 1 && currentPage < totalPage ){
+      
+      currentPage = currentPage + 1;
+      fetch(`https://reqres.in/api/users?page=`+ currentPage) 
+      .then(response => response.json())
+      .then( user=> {
+        console.log(user)
+        this.setState({ users: user.data,totalPage: user.total_pages,currentPage:user.page });
+      })
+
+    } else if(type == -1 && currentPage >= 1 ) {
+      console.log(currentPage,totalPage);
+      currentPage = currentPage - 1;
+      fetch(`https://reqres.in/api/users?page=`+currentPage) 
+      .then(response => response.json())
+      .then( user=> {
+        console.log(user)
+        this.setState({ users: user.data,totalPage: user.total_pages,currentPage:user.page });
+      })
+
+    }
+  }
+
   renderPagination(){
     const pageNumbers = [];
     for (let i = 1; i <= Math.ceil(this.state.totalPage); i++) {
@@ -57,18 +84,9 @@ class Users extends Component {
 
     return pageNumbers.map(number => {
       return (
-        <li><button onClick={(e) => this.changePage(number)}>{number}</button></li>
+        <li><button className={`${this.state.currentPage == number ? 'active' :'' }`} onClick={(e) => this.changePage(number)}> {number} </button></li>
       );
     });
-
-    // return <ul className={`pagination-ul ${this.state.currentPage <= this.state.totalPage ? 'show':'hide' } `}>
-    //   <li><button onClick={(e) => this.changePage(1)}>&lt;&lt;</button></li>
-    //   <li><button onClick={(e) => this.changePage(1)}>1</button></li>
-    //   <li><button onClick={(e) => this.changePage(2)}>2</button></li>
-    //   <li><button onClick={(e) => this.changePage(3)}>3</button></li>
-    //   <li><button onClick={(e) => this.changePage(4)}>4</button></li>
-    //   <li><button onClick={(e) => this.changePage(4)}>&gt;&gt;</button></li>
-    // </ul>
   }
 
   render() {
@@ -82,9 +100,9 @@ class Users extends Component {
           {this.renderUsers()}
         </div>
         <ul className={`pagination-ul ${this.state.currentPage <= this.state.totalPage ? 'show':'hide' } `}>
-          <li><button onClick={(e) => this.changePage('prev')}>&lt;</button></li>
+          <li><button onClick={(e) => this.navigatePagination(-1)}>&lt;</button></li>
           {this.renderPagination()}
-          <li><button onClick={(e) => this.changePage('next')}>&gt;</button></li>
+          <li><button onClick={(e) => this.navigatePagination(1)}>&gt;</button></li>
         </ul>
       </section>
     )
