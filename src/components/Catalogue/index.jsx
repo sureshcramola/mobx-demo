@@ -2,13 +2,16 @@ import React, { Component } from 'react';
 import Modal from 'react-modal';
 import { observer } from 'mobx-react';
 import ProductList from '../ProductList';
+import UserAdd from '../UserAdd';
 import ProductStore from '../../stores/ProductStore';
+import userStore from '../../stores/UserStore';
 
 class Catalogue extends Component {
   constructor(props) {
     super(props)
     this.state = {
       modalVisibility: false,
+      userModalVisibility: false,
       productName: '',
       productPrice: '', // In Rupees
       productId: 1,
@@ -27,10 +30,11 @@ class Catalogue extends Component {
     this.handleNameChange = this.handleNameChange.bind(this);
     this.handlePriceChange = this.handlePriceChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.toggleUserModalVisibility = this.toggleUserModalVisibility.bind(this);
   }
 
   handleNameChange(event) {
-    this.setState({ productName: event.target.value });
+    // this.setState({ event.target.name : event.target.value });
   }
 
   handlePriceChange(event) {
@@ -104,14 +108,23 @@ class Catalogue extends Component {
     this.setState({ modalVisibility: false });
   };
 
+  toggleUserModalVisibility = () => {
+    this.setState({ userModalVisibility: !this.state.userModalVisibility });
+  };
+
   render() {
-    const { modalVisibility, productName, productPrice } = this.state;
+    const { modalVisibility, productName, productPrice, userModalVisibility } = this.state;
 
     return (
       <section className="catalogue-wrapper">
         <div className="text-right">
+          
           <button className="btn-primary" onClick={this.openModal}>Add Info</button>
+          <button className="btn-secondary" onClick={this.toggleUserModalVisibility}>Add User</button>
+
           <ProductList productStore={ProductStore} />
+          <UserAdd isOpen={userModalVisibility}  modalHandler={this.toggleUserModalVisibility} userStore={userStore} />
+
           <Modal
             isOpen={modalVisibility}
             onAfterOpen={this.afterOpenModal}
@@ -143,6 +156,7 @@ class Catalogue extends Component {
               </div>
             </form>
           </Modal>
+
         </div>
       </section>
     )
