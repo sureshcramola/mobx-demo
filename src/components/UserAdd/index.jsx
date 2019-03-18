@@ -10,6 +10,7 @@ class UserAdd extends Component {
       modalVisibility:'',
       userName: '',
       userJob: '', // In Rupees
+      userID:[],
       errors: {
         userName: {
           active: false,
@@ -27,7 +28,7 @@ class UserAdd extends Component {
   }
 
   handleChange(event) {
-    this.setState({ [event.target.name]: event.target.value }, ()=> { console.log( this.state.userName, this.state.userJob ) });
+    this.setState({ [event.target.name]: event.target.value });
   }
 
   handleSubmit(event) {
@@ -75,11 +76,7 @@ class UserAdd extends Component {
           "name": this.state.username,
           "job": this.state.userJob
         }
-         // Resetting the input state values after successfully submit
-        //  this.setState({
-        //   userName: '',
-        //   userJob: ''
-        // });
+        
         fetch("https://reqres.in/api/users", {
           method: "POST",body:  JSON.stringify(data)
         })
@@ -87,7 +84,12 @@ class UserAdd extends Component {
           return response.json();   
         })
         .then(function(data){ 
-          console.log(data)
+          console.log("user success " + data);
+          //  Resetting the input state values after successfully submit
+          this.setState({
+            userName: '',
+            userJob: ''
+          });
         });
 
          // Adding values to redux state

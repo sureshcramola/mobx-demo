@@ -18,11 +18,7 @@ class Users extends Component {
         
       )
       .then( user=> {
-          console.log(user)
-
-          this.setState({ users: user.data,totalPage: user.total_pages,currentPage:user.page,totalUsers:user.total }, function () {
-            console.log(this.state.users);
-          });
+          this.setState({ users: user.data,totalPage: user.total_pages,currentPage:user.page,totalUsers:user.total });
       }).catch(error => console.log(error));
   }
 
@@ -53,7 +49,7 @@ class Users extends Component {
   navigatePagination(type){
     let { currentPage, totalPage } = this.state;
     console.log(currentPage,totalPage);
-    if( type == 1 && currentPage < totalPage ){
+    if( type === 1 && currentPage < totalPage ){
       
       currentPage = currentPage + 1;
       fetch(`https://reqres.in/api/users?page=`+ currentPage) 
@@ -63,7 +59,7 @@ class Users extends Component {
         this.setState({ users: user.data,totalPage: user.total_pages,currentPage:user.page });
       })
 
-    } else if(type == -1 && currentPage >= 1 ) {
+    } else if(type === -1 && currentPage > 1 ) {
       console.log(currentPage,totalPage);
       currentPage = currentPage - 1;
       fetch(`https://reqres.in/api/users?page=`+currentPage) 
@@ -84,7 +80,7 @@ class Users extends Component {
 
     return pageNumbers.map(number => {
       return (
-        <li><button className={`${this.state.currentPage == number ? 'active' :'' }`} onClick={(e) => this.changePage(number)}> {number} </button></li>
+        <li key={number}><button className={`${this.state.currentPage === number ? 'active' :'' }`} onClick={(e) => this.changePage(number)}> {number} </button></li>
       );
     });
   }
