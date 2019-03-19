@@ -33,8 +33,16 @@ class Catalogue extends Component {
     this.toggleUserModalVisibility = this.toggleUserModalVisibility.bind(this);
   }
 
+  componentWillMount(){
+    console.log("will mount");
+  }
+
+  componentDidMount(){
+    console.log("did mount");
+  }
+
   handleNameChange(event) {
-    // this.setState({ event.target.name : event.target.value });
+    this.setState({ [event.target.name] : event.target.value });
   }
 
   handlePriceChange(event) {

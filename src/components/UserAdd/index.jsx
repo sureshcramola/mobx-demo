@@ -76,7 +76,8 @@ class UserAdd extends Component {
           "name": this.state.username,
           "job": this.state.userJob
         }
-        
+        var me = this;
+
         fetch("https://reqres.in/api/users", {
           method: "POST",body:  JSON.stringify(data)
         })
@@ -84,12 +85,18 @@ class UserAdd extends Component {
           return response.json();   
         })
         .then(function(data){ 
-          console.log("user success " + data);
-          //  Resetting the input state values after successfully submit
-          this.setState({
-            userName: '',
-            userJob: ''
+          console.log("user success " + JSON.stringify( data ));
+          me.setState({
+            userID: [...me.state.userID,data.id]
+          },() => {
+            console.log(me.state.userID);
           });
+        });
+
+        //  Resetting the input state values after successfully submit
+        this.setState({
+          userName: '',
+          userJob: ''
         });
 
          // Adding values to redux state
