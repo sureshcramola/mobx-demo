@@ -1,1 +1,10 @@
 @import "./styles/base";
+.nav-wrapper{
+    margin: 20px;
+    text-align: center;
+    .nav-links{
+        margin-right: 10px;
+        color: $btnBG;
+        text-decoration: none;
+    }
+}
