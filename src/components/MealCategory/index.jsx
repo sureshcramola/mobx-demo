@@ -1,39 +1,44 @@
 import React, { Component } from 'react';
+import { Link } from "react-router-dom";
 
-class About extends Component {
+class MealCategory extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      product:{}
+      food:[]
     }
   }
 
   componentDidMount() {
-    const { match: { params } } = this.props;
-    console.log(params.id);
+    const { id } = this.props.location;
+    console.log(id);
 
-    fetch(`https://reqres.in/api/unknown/`+params.id) 
+    fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=`+id) 
       .then(response => response.json()
         
       )
-      .then( product=> {
-          this.setState({ product: product.data},()=> console.log(this.state.product) );
+      .then( food=> {
+          this.setState({ food: food.meals},()=> console.log(this.state.food) );
       }).catch(error => console.log(error));
   }
 
   renderData(){
-    const { product } = this.state;
-    console.log(Object.keys(product).length,this.state.product);
-    
-    if(Object.keys(product).length > 0) {
-      return (
-        <div style={{margin: "0 auto",width:300}}>
-          <p>Product ID: {product.id}</p>
-          <p>Product Name: {product.name}</p>
-          <p>year: {product.year}</p>
-          <p>Product Color: {product.color}</p>
-        </div>
-      )
+    const { food } = this.state;
+    if(food != null){
+      return food.map((mealItem, itemID) => {
+        console.log(mealItem);
+        return (
+          <div className="col-lg-3 mt-30">
+            <div key={itemID} className="card h-100">
+              <img className="card-img-top" src={mealItem.strMealThumb}/>
+              <div className="card-body">
+                <h5 className="card-title">{mealItem.strMeal}</h5>
+                <Link className="btn btn-primary" to={{ pathname: '/recipe', mealId: mealItem.idMeal }}>View Recipe</Link>
+              </div>
+            </div>
+          </div>
+        )
+      })
     }
     
   }
@@ -41,14 +46,18 @@ class About extends Component {
   render() {
     
     return (
-      <section className="product-wrapper">
-        <div className="d-flex flex-row-wrap-center">
-          About US
+      <section className="food-wrapper">
+        <div className="container">
+          <div className="d-flex flex-row-wrap-center">
+            Available Meals
+          </div>
+          <div className="row">
+            {this.renderData()}
+          </div>
         </div>
-        {this.renderData()}
       </section>
     )
   }
 }
 
-export default About;
+export default MealCategory;

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from "react-router-dom";
 
 class Meal extends Component {
   constructor(props) {
@@ -32,7 +33,8 @@ class Meal extends Component {
             <img className="card-img-top" src={mealItem.strCategoryThumb}/>
             <div className="card-body">
               <h5 className="card-title">{mealItem.strCategory}</h5>
-              <p class="card-text">{mealItem.strCategoryDescription}</p>
+              <p class="card-text">{mealItem.strCategoryDescription.split(' ').slice(0, 15).join(" ")} .....</p>
+              <Link className="btn btn-primary" to={{ pathname: '/meal-category', id: mealItem.strCategory }}>View</Link>
             </div>
           </div>
         </div>

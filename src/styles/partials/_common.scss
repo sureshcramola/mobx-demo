@@ -150,6 +150,19 @@ label{
     border-top-right-radius: calc(.25rem - 1px);
 }
 
+.btn-primary{
+    color: #fff;
+    background-color: #0069d9;
+    border-color: #0062cc;
+    text-decoration: none;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: .25rem;
+    display: inline-block;
+    text-align: center;
+}
+
 .mt-30{
     margin-top: 30px;
 }
