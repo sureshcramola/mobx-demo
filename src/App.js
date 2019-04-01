@@ -6,6 +6,7 @@ import About from './components/About';
 import Contact from './components/Contact';
 import Meal from './components/Meal';
 import MealCategory from './components/MealCategory';
+import Recipe from './components/Recipe';
 
 import { Provider } from 'mobx-react';
 import ProductStore from './stores/ProductStore';
@@ -33,6 +34,7 @@ class App extends Component {
               <Route path="/contact" component={Contact} />
               <Route path="/meal" component={Meal} />
               <Route path="/meal-category" component={MealCategory} />
+              <Route path="/recipe" component={Recipe} />
               {/*  */}
             </div>
           </div>
