@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from "react-router-dom";
 
 class Recipe extends Component {
   constructor(props) {
@@ -16,6 +15,8 @@ class Recipe extends Component {
     fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=`+mealId) 
       .then(response => response.json())
       .then( recipe=> {
+          localStorage.setItem('token', 'rec54534534');
+
           this.setState({ recipe: recipe.meals},()=> console.log(this.state.recipe) );
       }).catch(error => console.log(error));
   }
@@ -24,7 +25,7 @@ class Recipe extends Component {
     const { recipe } = this.state;
     if(recipe != null){
       return recipe.map((mealItem, itemID) => {
-        console.log(mealItem);
+        console.log("token",localStorage.length);
         return (
           <div className="col-lg-12 mt-30">
             <div key={itemID} className="card h-100">
